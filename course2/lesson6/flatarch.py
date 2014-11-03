@@ -11,5 +11,5 @@ def flatarch(source,zipfile_name):
             files_to_archive.append(file)
     zf = zipfile.ZipFile(zipfile_name, "w", zipfile.ZIP_DEFLATED)
     for fn_to_archive in files_to_archive:
-        zf.write(fn_to_archive)
+        zf.write(fn_to_archive, os.path.basename(fn_to_archive))
     zf.close()

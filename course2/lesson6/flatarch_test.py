@@ -33,7 +33,8 @@ class TestFlatarch(unittest.TestCase):
         files_in_archive = zf.namelist()
         zf.close()
         
-        observed = set([os.path.basename(f) for f in files_in_archive])
+        observed = set(files_in_archive)
+        #observed = set(files_in_archive)
         expected = set(self.file_names)
 
         self.assertEqual(observed, expected)
