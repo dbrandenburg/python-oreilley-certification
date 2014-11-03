@@ -8,13 +8,11 @@ class Application(Frame):
 
     def __init__(self, master=None):
         Frame.__init__(self, master)
-        self.bind("<Button-1>", self.handler)
-        
         self.master.rowconfigure(0, weight=1)
         self.master.columnconfigure(0, weight=1)
         self.grid(sticky=ALL)
         
-        self.rowconfigure(0, weight=1) 
+        self.rowconfigure(0, weight=1)
         Label(self, text="Frame {0}".format(1),bg="red").grid(row=0, column=0, sticky=ALL, columnspan=2)
         self.rowconfigure(1, weight=1)
         Label(self, text="Frame {0}".format(2),bg="green").grid(row=1, column=0, sticky=ALL, columnspan=2)
@@ -25,18 +23,6 @@ class Application(Frame):
         for c in range(5):
             self.columnconfigure(c, weight=1)
             Button(self, text="Col {0}".format(c)).grid(row=2, column=c, sticky=ALL)
-            
-    def handler(event):
-        print("clicked at", event.x, event.y)    
-
 root = Tk()
-app = Application(master=root)   
-app.pack()             
+app = Application(master=root)                
 app.mainloop()
-
-
-
-#root = Tk()
-#def handler(event):
-#print("clicked at", event.x, event.y)
-#frame = Frame(root, width=100, height=100) frame.bind("<Button-1>", handler) frame.pack()
