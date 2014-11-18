@@ -34,9 +34,8 @@ class TestFlatarch(unittest.TestCase):
         zf.close()
         
         observed = set(files_in_archive)
-        #observed = set(files_in_archive)
         expected = set(self.file_names)
-
+        print(observed,expected)
         self.assertEqual(observed, expected)
     
     def tearDown(self):
