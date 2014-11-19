@@ -38,32 +38,24 @@ class Application(Frame):
         
         main_frame = Frame(master)
         main_frame.grid(row=0,column=2,rowspan=2,columnspan=3, sticky=ALL)
-        
-        #main_frame.rowconfigure(0, weight=1)
-        #main_frame.rowconfigure(1, weight=1)
-        #main_frame.columnconfigure(0, weight=1)
-        #main_frame.columnconfigure(1, weight=1)
-        #main_frame.columnconfigure(2, weight=1)
            
         self.entry = Entry(main_frame)
+        self.entry.bind("<Return>", lambda e: self.get_file_content())
         self.entry.pack(side=TOP, fill=BOTH)
-        #self.entry.grid(row=0, column=0,columnspan=3,sticky=W+E)
         
-        self.text = Text(main_frame, width=0, height=0) #width=0 to align to same button size
+        self.text = Text(main_frame, width=0, height=0)
         self.text.pack(side=TOP, fill=BOTH, expand=True)
-        #self.text.grid(row=1, column=0,columnspan=3,sticky=ALL)
 
     def handler(self, event, framename):
         print("clicked at", event.x, event.y, "in", framename)
         filename = self.entry.get()
-        print(filename)
-        self.get_file_content('README')
         
     def settext(self,text_from_file):
         self.text.insert(CURRENT, text_from_file)
         
-    def get_file_content(self,filename):
-        print(filename)
+    def get_file_content(self):
+        output_text=self.entry.get()
+        print(output_text)
         #f = open(filename, 'w')
         #print(f)
 
