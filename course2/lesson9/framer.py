@@ -17,17 +17,7 @@ class Application(Frame):
         for r in range(2):
              self.master.rowconfigure(r, weight=1)
 
-        self.master.columnconfigure(0, weight=1)
-        Button(master, text="{0}".format("Red")).grid(row=2,column=0,sticky=E+W)        
-        self.master.columnconfigure(1, weight=1)
-        Button(master, text="{0}".format("Blue")).grid(row=2,column=1,sticky=E+W)        
-        self.master.columnconfigure(2, weight=1)
-        Button(master, text="{0}".format("Green")).grid(row=2,column=2,sticky=E+W)        
-        self.master.columnconfigure(3, weight=1)
-        Button(master, text="{0}".format("Black")).grid(row=2,column=3,sticky=E+W)        
-        self.master.columnconfigure(4, weight=1)
-        Button(master, text="{0}".format("Open")).grid(row=2,column=4,sticky=E+W)        
-        
+
         top_frame = Frame(master, bg="red", height=100)
         top_frame.grid(row=0, column=0,columnspan=2,sticky=ALL)
         top_frame.bind("<Button-1>", lambda event: self.handler(event,"top_frame"))
@@ -40,25 +30,41 @@ class Application(Frame):
         main_frame.grid(row=0,column=2,rowspan=2,columnspan=3, sticky=ALL)
            
         self.entry = Entry(main_frame)
-        self.entry.bind("<Return>", lambda e: self.get_file_content())
+        self.entry.bind("<Return>", lambda e: self.print_text_from_file())
         self.entry.pack(side=TOP, fill=BOTH)
         
         self.text = Text(main_frame, width=0, height=0)
         self.text.pack(side=TOP, fill=BOTH, expand=True)
+        
+        self.master.columnconfigure(0, weight=1)
+        Button(master, text="{0}".format("Red")).grid(row=2,column=0,sticky=E+W)        
+        self.master.columnconfigure(1, weight=1)
+        Button(master, text="{0}".format("Blue")).grid(row=2,column=1,sticky=E+W)        
+        self.master.columnconfigure(2, weight=1)
+        Button(master, text="{0}".format("Green")).grid(row=2,column=2,sticky=E+W)        
+        self.master.columnconfigure(3, weight=1)
+        Button(master, text="{0}".format("Black")).grid(row=2,column=3,sticky=E+W)        
+        self.master.columnconfigure(4, weight=1)
+        Button(master,command=self.print_text_from_file,text="{0}".format("Open")).grid(row=2,column=4,sticky=E+W)
 
     def handler(self, event, framename):
         print("clicked at", event.x, event.y, "in", framename)
         filename = self.entry.get()
+            
+    def print_text_from_file(self):
+        filename=self.entry.get()
+        print("Opening file: ", filename)
         
-    def settext(self,text_from_file):
-        self.text.insert(CURRENT, text_from_file)
-        
-    def get_file_content(self):
-        output_text=self.entry.get()
-        print(output_text)
-        #f = open(filename, 'w')
-        #print(f)
-
+        try:
+            f = open(filename, 'r')
+        except:
+            print("Could not open file ", filename)
+        else:
+            self.text.delete(1.0, END)
+            for line in f:
+                self.text.insert(CURRENT, line)
+                print(line[:-1])
+            f.close()
         
 
 root = Tk()
