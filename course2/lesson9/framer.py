@@ -5,7 +5,6 @@ from tkinter import *
 ALL = N+S+W+E
 OPEN_BUTTON_LABEL = "Open"
 BUTTON_LABEL = ["Red","Blue","Green","Black"]
-OPEN_BUTTON_LABEL = "Open"
 
 class Application(Frame):
 
@@ -37,13 +36,13 @@ class Application(Frame):
         self.text.pack(side=TOP, fill=BOTH, expand=True)
         
         self.master.columnconfigure(0, weight=1)
-        Button(master, text="{0}".format("Red")).grid(row=2,column=0,sticky=E+W)        
+        Button(master,command=lambda: self.text.configure(fg='red'), text="{0}".format("Red")).grid(row=2,column=0,sticky=E+W)        
         self.master.columnconfigure(1, weight=1)
-        Button(master, text="{0}".format("Blue")).grid(row=2,column=1,sticky=E+W)        
+        Button(master,command=lambda: self.text.configure(fg='blue'), text="{0}".format("Blue")).grid(row=2,column=1,sticky=E+W)        
         self.master.columnconfigure(2, weight=1)
-        Button(master, text="{0}".format("Green")).grid(row=2,column=2,sticky=E+W)        
+        Button(master,command=lambda: self.text.configure(fg='green'), text="{0}".format("Green")).grid(row=2,column=2,sticky=E+W)        
         self.master.columnconfigure(3, weight=1)
-        Button(master, text="{0}".format("Black")).grid(row=2,column=3,sticky=E+W)        
+        Button(master,command=lambda: self.text.configure(fg='black'), text="{0}".format("Black")).grid(row=2,column=3,sticky=E+W)        
         self.master.columnconfigure(4, weight=1)
         Button(master,command=self.print_text_from_file,text="{0}".format("Open")).grid(row=2,column=4,sticky=E+W)
 
@@ -63,7 +62,6 @@ class Application(Frame):
             self.text.delete(1.0, END)
             for line in f:
                 self.text.insert(CURRENT, line)
-                print(line[:-1])
             f.close()
         
 
