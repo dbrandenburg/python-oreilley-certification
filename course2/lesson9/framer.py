@@ -36,19 +36,21 @@ class Application(Frame):
         bottom_frame.grid(row=1, column=0,columnspan=2,sticky=ALL)
         bottom_frame.bind("<Button-1>", lambda event: self.handler(event,"bottom_frame"))
         
-        main_frame = Frame(master, height=100)
-        main_frame.grid(row=0, column=2,rowspan=2,sticky=ALL)
+        main_frame = Frame(master)
+        main_frame.grid(row=0,column=2,rowspan=2,columnspan=3, sticky=ALL)
         
-        main_frame.rowconfigure(0, weight=1)
-        main_frame.rowconfigure(1, weight=1)
-        main_frame.columnconfigure(0, weight=1)
-        main_frame.columnconfigure(1, weight=1)
-        main_frame.columnconfigure(2, weight=1)
+        #main_frame.rowconfigure(0, weight=1)
+        #main_frame.rowconfigure(1, weight=1)
+        #main_frame.columnconfigure(0, weight=1)
+        #main_frame.columnconfigure(1, weight=1)
+        #main_frame.columnconfigure(2, weight=1)
            
         self.entry = Entry(main_frame)
-        self.entry.grid(row=0, column=0,columnspan=3,sticky=W+E)
+        self.entry.pack(side=TOP, fill=BOTH)
+        #self.entry.grid(row=0, column=0,columnspan=3,sticky=W+E)
         
-        #self.text = Text(main_frame)
+        self.text = Text(main_frame, width=0, height=0) #width=0 to align to same button size
+        self.text.pack(side=TOP, fill=BOTH, expand=True)
         #self.text.grid(row=1, column=0,columnspan=3,sticky=ALL)
 
     def handler(self, event, framename):
