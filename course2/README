@@ -1,0 +1,48 @@
+Python 2: Getting More Out of Python
+ Lesson 12, Project 1
+
+Here are your instructions:
+
+
+Write a function that takes an email address, a string, and a list argument. It should return an email message addressed to the email address passed as the first argument, with the second argument as the message body. If the list is non-empty, then each list item should be treated as the name of a file and the corresponding file should be attached (with an appropriate MIME type) to the message.
+
+Please include any files to attach in the same folder as your program. There is no need to send it as an email with smtp, though you may wish to print it as a string as a part of testing.
+ 
+
+How long did it take you to complete this project? What's this?
+ (This estimate helps us verify time projections for courses, anonymously. It is not part of your evaluation.) 
+
+
+Question 1:
+
+
+What function can you use to create an email.message.Message object from its string representation?
+
+Question 2:
+
+
+Which library would you use to send emails?
+
+Question 3:
+
+
+What is the structure of an email header?
+
+Question 1:
+
+
+What separates the body of a message from its headers?
+
+Question 2:
+
+
+What is the usual Content-Type of a multipart message?
+
+Question 3:
+
+
+What function might you use to determine the mime type of a file?
+ 
+
+How long did it take you to complete this quiz? What's this?
+ (This estimate helps us verify time projections for courses, anonymously. It is not part of your evaluation.) 
