@@ -5,9 +5,15 @@ email printer - A program to print an email based on passing a sender, a body an
 import email, datetime
 from email.mime.multipart import MIMEMultipart
 import mimetypes
+import os
 
 
 def print_email(to, body, *files):
+    
+    if not files:
+        """Get all files in current directory"""
+        files = [f for f in os.listdir('.') if os.path.isfile(f)]
+        
     msg = email.message_from_string(body)
     msg['From'] = 'sender@db-network.de'
     msg['To'] = to
@@ -16,7 +22,9 @@ def print_email(to, body, *files):
     
     print(msg.as_string())
     print(files)
-    #for fn in files:
-    #    mimetypes.guess_type(fn)
     
-print_email("receiver@db-network.de","test",'README','README2')
+    for fn in files:
+        print(mimetypes.guess_type(fn))
+        
+    
+print_email("receiver@db-network.de","Email Body")
