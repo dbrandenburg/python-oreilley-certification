@@ -17,32 +17,36 @@ Question 1:
 
 
 What function can you use to create an email.message.Message object from its string representation?
+The "message_from_string()" function
 
 Question 2:
 
 
 Which library would you use to send emails?
+The "smtplib"
 
 Question 3:
 
 
 What is the structure of an email header?
+The structure of an email header is a sequence of fields. According to RFC 2822 the only required header fields are the origination date field and the originator address field(s).  All other header fields are syntactically optional. The header is separated from the payload by exactly one blank line.
 
 Question 1:
 
-
 What separates the body of a message from its headers?
+Exactly one blank line
 
 Question 2:
 
 
 What is the usual Content-Type of a multipart message?
+multipart/mixed
 
 Question 3:
 
 
 What function might you use to determine the mime type of a file?
- 
+The function get_content_type()
 
 How long did it take you to complete this quiz? What's this?
  (This estimate helps us verify time projections for courses, anonymously. It is not part of your evaluation.) 
