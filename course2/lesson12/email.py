@@ -53,7 +53,7 @@ def print_email(to, body, *files):
         #msg.add_header('Content-Disposition', 'attachment', filename=filename)
         #outer.attach(msg)
     # Now send or store the message
-    #composed = outer.as_string()
+    #scomposed = outer.as_string()
         
     
 print_email("receiver@db-network.de","Email Body")
