@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Read in and parse email messages to verify readability.
 
@@ -102,4 +103,4 @@ class testRealEmail_traffic(unittest.TestCase):
                                          maxdate=maxdate)))
 
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main(warnings=False)

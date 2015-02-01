@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Email message handling module: contains logic to store and retrieve
 email messages using a MySQL relational database.
