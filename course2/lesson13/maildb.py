@@ -24,7 +24,8 @@ def store(msg):
         return result[0]
     date = msg['date']
     name, email = parseaddr(msg['from'])
-    dt = datetime.fromtimestamp(mktime_tz(parsedate_tz(date)))
+    if type(date) != datetime:
+        dt = datetime.fromtimestamp(mktime_tz(parsedate_tz(date)))
     text = msg.as_string()
     curs.execute("""INSERT INTO message
                     (msgMessageID, msgDate, msgSenderName, msgSenderAddress, msgText)
