@@ -46,6 +46,13 @@ class testMailPrepareation(unittest.TestCase):
         conn.commit()
     
     def test_generate_daylist(self):
+        """
+        Tests the generate_daylist function by passing a start time and a count
+        to get a list of dates back, counting from one day after the starttime.
+        
+        Info: Considering STARTTIME is the vacation leaving day, I'm not
+        calculating -1 day for mails to start getting sent.
+        """
         starttime = datetime(2015,3,1)
         daycount = 3
         daylist = messagePrep.generate_daylist(starttime, daycount)
@@ -55,6 +62,9 @@ class testMailPrepareation(unittest.TestCase):
             daylist, 'Schould contain a list of days in datetime format')
     
     def test_generate_email(self):
+        """
+        Testing the email generation.
+        """
         recipient = 'rec01@test.com'
         subject = 'This is a test message.'
         bodytext = 'JOTD'
@@ -69,6 +79,9 @@ class testMailPrepareation(unittest.TestCase):
         msg.as_string()
 
     def test_write_email_to_db(self):
+        """
+        Test for a message to get stored in the database.
+        """
         msg = MIMEText('test')
         msg['subject'] = 'subject'
         msg['from'] = 'from@test.com'
@@ -79,6 +92,10 @@ class testMailPrepareation(unittest.TestCase):
         #sending_date, message_from, message_body
     
     def test_write_to_db_per_recipient(self):
+        """
+        Testing the database preparation by passing in a daylist, recipients
+        and a list of jokes to store_preparation_emails
+        """
         recipients = settings.RECIPIENTS
         starttime = settings.STARTTIME
         daycount = settings.DAYCOUNT
