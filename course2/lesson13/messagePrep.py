@@ -41,13 +41,13 @@ def store(msg, sending_datetime):
     """
     message_body = msg.get_payload()
     message_id = msg['message-id']
-    message_from = msg['from']
+    message_to = msg['to']
     message_subject = msg['subject']
     curs.execute("""INSERT INTO message
                     (msgMessageID, msgDate, msgRecipientAdress, msgTextSubject, 
                     msgText)
                     VALUES (%s, %s, %s, %s, %s)""",
-                    (message_id, sending_datetime, message_from, message_subject,
+                    (message_id, sending_datetime, message_to, message_subject,
                         message_body))
     conn.commit()
 
@@ -68,6 +68,8 @@ def store_preparation_emails(recipients, daylist, jokes):
             msg = generate_email(recipient, sending_datetime, joke)
             store(msg, sending_datetime)
 
+#def get_and_print_emails:
+    
         
 
 
