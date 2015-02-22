@@ -87,9 +87,13 @@ class testMailPrepareation(unittest.TestCase):
         msg['from'] = 'from@test.com'
         msg['to'] = 'to@test.com'
         msg['message-id'] = make_msgid()
-        messagePrep.store(msg, datetime(2015, 3, 4, 0, 0))
-        #fixme: assert sql call message_id, 
-        #sending_date, message_from, message_body
+        test_date = datetime(2015, 3, 4, 0, 0)
+        messagePrep.store(msg, test_date)
+        curs.execute("SELECT * FROM message")
+        result = curs.fetchall()
+        self.assertEqual(
+            [(1, msg['message-id'], test_date, msg['to'], msg['subject'], 
+            msg.get_payload())], result, 'Schould return stored message')
     
     def test_write_to_db_per_recipient(self):
         """
@@ -101,24 +105,20 @@ class testMailPrepareation(unittest.TestCase):
         daycount = settings.DAYCOUNT
         jokes = settings.JOKES
         daylist = messagePrep.generate_daylist(starttime, daycount)
+        
         messagePrep.store_preparation_emails(recipients, daylist, jokes)
+        curs.execute("SELECT COUNT(*) FROM message") 
+        
+        mailcount = min(daycount, len(jokes))
+        number_of_recipients = len(recipients)
+        result = curs.fetchall()
+        
+        expected_total_mailcount = mailcount * number_of_recipients
+        mails_in_db = result[0][0]
+        
+        self.assertEqual(expected_total_mailcount, mails_in_db, 
+            'Mails in db should equal to prepared joke-days times recipients')
+
     
 if __name__ == "__main__":
     unittest.main()
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    

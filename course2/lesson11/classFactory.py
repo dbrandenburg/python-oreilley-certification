@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 classFactory: function to return tailored classes
 CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL PRIMARY KEY, name VARCHAR(50), email VARCHAR(50));

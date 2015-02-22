@@ -54,22 +54,17 @@ def store(msg, sending_datetime):
 def store_preparation_emails(recipients, daylist, jokes):
     """
     Takes a message, a list of recipients and a list of datetimes to store
-    emails including a timestamp as basis of a scheduled mail sender
+    emails including a timestamp as basis of a scheduled mail sender.
+    If number of days is greater than number of jokes, I don't want to spam
+    my collegues with duplicate jokes :)
     """
     number_of_jokes = len(jokes)
     if number_of_jokes < len(daylist):
-        print('Not enough jokes for so many days. reducing daycount to ' +
+        print('Info: Not enough jokes for so many days. reducing daycount to ' +
             str(number_of_jokes))
     joke_schedule = zip(daylist,jokes)
 
     for sending_datetime, joke in joke_schedule:
-        print(sending_datetime)
         for recipient in recipients:
             msg = generate_email(recipient, sending_datetime, joke)
             store(msg, sending_datetime)
-
-#def get_and_print_emails:
-    
-        
-
-
