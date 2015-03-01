@@ -22,9 +22,21 @@ class DBTest(unittest.TestCase):
     def test_repr(self):
         self.assertEqual(repr(self.c),
                          "user_record(1, 'Steve Holden', 'steve@holdenweb.com')")
-    
-    def test_query(self):
-        self.c.retrieve(cursor,condition="WHERE name = 'kerstin'")
+        
+    def test_retrieve_data_row_objects(self):
+        sql = 'SELECT * FROM user WHERE name=\'Steve Holden\';'
+        cursor.execute(sql)
+        expected_rows = set( )
+        for row in cursor.fetchall():
+            expected_rows.add(row)
+
+        observed_rows = set( )
+        for row in self.c.retrieve(cursor,"name='Steve Holden'"):
+            observed_rows.add(row)
+            
+        print(expected_rows,observed_rows)
+        self.assertEqual(observed_rows, expected_rows)
+
 
 if __name__ == "__main__":
     unittest.main()

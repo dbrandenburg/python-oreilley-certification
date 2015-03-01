@@ -21,11 +21,11 @@ def build_row(table, cols):
             """
             curs = curser on existing db connection
             condition = string of conditions / true of all received rows
-            
             """
             query = "SELECT {0} FROM {1}".format(", ".join(self.cols), self.table)
             if condition is not None:
-                query += " " + condition
+                query += " WHERE " + condition
+            print(query)
             curs.execute(query)
             for row in curs.fetchall():
                 yield row

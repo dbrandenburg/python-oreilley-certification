@@ -68,3 +68,12 @@ def store_preparation_emails(recipients, daylist, jokes):
         for recipient in recipients:
             msg = generate_email(recipient, sending_datetime, joke)
             store(msg, sending_datetime)
+
+if __name__ == "__main__":
+    recipients = settings.RECIPIENTS
+    starttime = settings.STARTTIME
+    daycount = settings.DAYCOUNT
+    jokes = settings.JOKES
+    daylist = generate_daylist(starttime, daycount)
+    
+    store_preparation_emails(recipients, daylist, jokes)
