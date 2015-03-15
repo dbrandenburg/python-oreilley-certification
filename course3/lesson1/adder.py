@@ -15,3 +15,6 @@ def datatype_errors(*args):
             return obj, " is not of type int"
             raise TypeError("Object is not of type int")
     return
+
+import sys
+print(sys.argv)
