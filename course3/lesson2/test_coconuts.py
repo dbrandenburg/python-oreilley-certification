@@ -6,10 +6,8 @@ from coconuts import Inventory
 class TestCoconuts(unittest.TestCase):
     """A suite to test the adder"""
     
-    def test_add_objects_successes(self):
-        """Tests suceeding add object tests"""
-        object_sum = object_adder(1,2)
-        self.assertEqual(3, object_sum, '1 + 2 should be 3')
+    def test_different_coconut_weights(self):
+        """Tests weather coconuts types have different weights"""
         
     def test_datatype_errors(self):
         """Tests failing datatype validations"""
