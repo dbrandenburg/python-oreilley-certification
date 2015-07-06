@@ -1,51 +1,37 @@
 #!/usr/bin/env python3
 
-class Bunch(object):
+class Coconut():
 
-    def __init__(self, *args, **kwargs):
-        for key, value in kwargs.items():
-            if hasattr(self, key):
-                raise AttributeError(
-                    "API conflict: '%s' is part of the '%s' API" % (key, self.__class__.__name__))
-            else:
-                setattr(self, key, value)
+    """A class to provide the weight of a coconut."""
 
-    def pretty(self):
-        text = ""
-        for key, value in self.__dict__.items():
-            text += "%s: %s\n" % (key, value)
-        return text
+    def __init__(self, coconut_type = None):
+        allowed_coconut_types = {'South Asian': 3,
+                         'Middle Eastern': 2.5,
+                         'American': 3.5}
+        if not coconut_type:
+            for k,v in allowed_coconut_types.items():
+                setattr(self, k, v)
+        elif coconut_type in allowed_coconut_types:
+            setattr(self, 'coconut_type', coconut_type)
+            setattr(self, 'coconut_weight', allowed_coconut_types[coconut_type])
+        else:
+            raise NameError(
+                "API conflict: coconut_type '%s' is not valid" % coconut_type)
 
-
-class Inventory(Bunch):
+            
+class Inventory():
 
     """An Inventory class to manage coconuts"""
 
-    def add_coconut(self, coconut_type):
+    def add_coconut(self, coconut):
         "Adds a coconut for valid coconut types only"
-        print(type(coconut_type))
-        coconut_types = {'South Asian': 3,
-                         'Middle Eastern': 2.5,
-                         'American': 3.5}
-        if coconut_type not in coconut_types:
-            raise KeyError("Coconut Type '%s' not supported." %
-                           (self.coconut_type))
+        if isinstance(coconut, str):
+            raise AttributeError("Coconut must not be string")
+        if hasattr(self, 'Total'):
+            total_weight = self.__dict__['Total'] + coconut.coconut_weight
+            setattr(self, 'Total', total_weight)
         else:
-            weight = coconut_types[coconut_type]
-            setattr(self, coconut_type, weight)
-            if hasattr(self, 'Total'):
-                total_weight = self.__dict__['Total'] + weight
-                setattr(self, 'Total', total_weight)
-            else:
-                setattr(self, 'Total', weight)
+            setattr(self, 'Total', coconut.coconut_weight)
 
     def total_weight(self):
         return self.__dict__['Total']
-
-inventory = Inventory()
-inventory.add_coconut('South Asian')
-inventory.add_coconut('South Asian')
-inventory.add_coconut('Middle Eastern')
-print(inventory.total_weight())
-
-# total_weight():
