@@ -22,4 +22,3 @@ home.append(Sofa('Living Room'))
 print(home)
 
 #def map_the_home(home):
-    
