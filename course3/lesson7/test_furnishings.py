@@ -11,8 +11,8 @@ class TestFurnishings(unittest.TestCase):
         home.append(bed_to_bedroom)
         home.append(sofa_to_livingroom)
         map_the_home(home)
-        self.assertEqual({'Bedroom': bed_to_bedroom, 'Living Room': sofa_to_livingroom}, map_the_home(home), 'message')
-        counter(home)
+        self.assertEqual({'Bedroom': bed_to_bedroom, 'Living Room': sofa_to_livingroom}, map_the_home(home), 
+            'the function map_the_home contains the rooms and the furniting object as a dict')
         
 if __name__ == "__main__":
     unittest.main()

@@ -32,5 +32,10 @@ def counter(home):
                 furnish_name_count += 1
         print(furnish_name + ':', furnish_name_count)
         
-        
-bla = Furnishings('s')
+if __name__ == '__main__':
+    home = []
+    bed_to_bedroom = Bed('Bedroom')
+    sofa_to_livingroom = Sofa('Living Room')
+    home.append(bed_to_bedroom)
+    home.append(sofa_to_livingroom)
+    counter(home)
