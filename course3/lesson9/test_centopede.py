@@ -26,4 +26,4 @@ class TestBug(unittest.TestCase):
         self.assertRaises(AttributeError, setattr, ralph, "stomach", [])
 
 if __name__ == "__main__":
-    unittest.main() 
+    unittest.main()
