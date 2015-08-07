@@ -20,7 +20,9 @@ class Table(Furnishings):
 def map_the_home(home):
     home_map = {}
     for furniture in home:
-        home_map.update({furniture.__dict__['room']:furniture})
+        if furniture.__dict__['room'] not in home_map:
+            home_map[furniture.__dict__['room']] = []
+        home_map[furniture.__dict__['room']].append(furniture)
     return home_map
 
 def counter(home):
@@ -31,11 +33,3 @@ def counter(home):
             if furniture.__class__.__name__ == furnish_name:
                 furnish_name_count += 1
         print(furnish_name + ':', furnish_name_count)
-        
-if __name__ == '__main__':
-    home = []
-    bed_to_bedroom = Bed('Bedroom')
-    sofa_to_livingroom = Sofa('Living Room')
-    home.append(bed_to_bedroom)
-    home.append(sofa_to_livingroom)
-    counter(home)
