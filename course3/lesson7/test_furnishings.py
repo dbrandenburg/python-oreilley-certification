@@ -4,15 +4,17 @@ import unittest
 from furnishings import *
 
 class TestFurnishings(unittest.TestCase):
-    def test_map_the_home(self):
-        home = []
-        bed_to_bedroom = Bed('Bedroom')
-        sofa_to_livingroom = Sofa('Living Room')
-        home.append(bed_to_bedroom)
-        home.append(sofa_to_livingroom)
-        map_the_home(home)
-        self.assertEqual({'Bedroom': bed_to_bedroom, 'Living Room': sofa_to_livingroom}, map_the_home(home), 
-            'the function map_the_home contains the rooms and the furniting object as a dict')
+            
+    def test_map(self):
+        self.home = []
+        self.home.append(Bed('Bedroom'))
+        self.home.append(Sofa('Living Room'))
+        self.home.append(Table('Bedroom'))
+
+        mapping = map_the_home(self.home)
+        self.assertTrue(isinstance(mapping['Bedroom'][0], Bed))
+        self.assertTrue(isinstance(mapping['Living Room'][0], Sofa))
+        self.assertTrue(isinstance(mapping['Bedroom'][1], Table))        
         
 if __name__ == "__main__":
     unittest.main()
