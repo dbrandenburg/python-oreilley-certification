@@ -1,3 +1,4 @@
+
 import re
 import logging
 from optparse import OptionParser
@@ -17,7 +18,6 @@ try:
     STATE_VALIDATOR = config.get('validators','state')
 except:
     pass
-
 
 class StateError(Exception):
     """Custom error for wrong state"""
