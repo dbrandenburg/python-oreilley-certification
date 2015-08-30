@@ -1,23 +1,34 @@
+#!/usr/bin/env python3
 
 import re
+import os
 import logging
 from optparse import OptionParser
 import configparser
 
-# Log defaults
-LOG_FORMAT = "%(asctime)s - %(levelname)s - %(funcName)s - %(message)s"
-LOG_OUTPUT = 'property_address.log'
+def start_logging(loglevel='INFO', LOG_OUTPUT='property_address.log'):
+    # Log defaults
+    LOG_FORMAT = "%(asctime)s - %(levelname)s - %(funcName)s - %(message)s"
 
-# Config
-config = configparser.RawConfigParser()
-config.read('property_address.cfg')
-try:
-    LOG_FORMAT = config.get('log', 'format')
-    LOG_OUTPUT = config.get('log', 'output')
-    ZIP_CODE_VALIDATOR = config.get('validators','zip_code')
-    STATE_VALIDATOR = config.get('validators','state')
-except:
-    pass
+    # Config
+    config = configparser.RawConfigParser()
+    config_filename = os.path.join(os.path.dirname(__file__), 'property_address.cfg')
+    config.read(config_filename)
+
+    try:
+        LOG_FORMAT = config.get('log', 'format')
+        LOG_OUTPUT = config.get('log', 'output')
+        ZIP_CODE_VALIDATOR = config.get('validators','zip_code')
+        STATE_VALIDATOR = config.get('validators','state')
+    except:
+        pass
+
+    LEVELS = {'DEBUG': logging.DEBUG, 'INFO': logging.INFO,
+          'WARNING': logging.WARNING, 'ERROR': logging.ERROR,
+          'CRITICAL' : logging.CRITICAL}
+
+    LOG_OUTPUT =  os.path.join(os.path.dirname(__file__), LOG_OUTPUT)
+    logging.basicConfig(filename=LOG_OUTPUT, level=LEVELS[loglevel], format=LOG_FORMAT)
 
 class StateError(Exception):
     """Custom error for wrong state"""
@@ -94,12 +105,7 @@ if __name__ == "__main__":
     parser.add_option("-z","--zip_code", action="store", dest="zip_code", help="Throws a parser error if empty yes Sets the zip_code value of the Address object")
     (options, args) = parser.parse_args()
 
-    LEVELS = {'DEBUG': logging.DEBUG, 'INFO': logging.INFO,
-              'WARNING': logging.WARNING, 'ERROR': logging.ERROR,
-              'CRITICAL' : logging.CRITICAL}
-
-    logging.basicConfig(filename=LOG_OUTPUT, level=LEVELS[options.level],
-                    format=LOG_FORMAT)
+    start_logging(loglevel=options.level)
 
     if not options.name or not options.address or not options.city or not options.state or not options.zip_code:
         parser.error("property_address.py: error: options -n, -a, -c, -s, -z are required")

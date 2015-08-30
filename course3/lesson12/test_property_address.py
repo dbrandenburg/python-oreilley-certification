@@ -1,10 +1,12 @@
+#!/usr/bin/env python3
 import unittest
 from property_address import *
 
 class TestAddresses(unittest.TestCase):
 
     def setUp(self):
-        self.home = Address(name='Steve Holden', street_address='1972 Flying Circus', city='Arlington', state='VA', zip_code='12345' )
+        start_logging(loglevel='INFO')
+        self.home = Address( name='Steve Holden', street_address='1972 Flying Circus', city='Arlington', state='VA', zip_code='12345' )
 
     def test_name(self):
         self.assertEqual(self.home.name, 'Steve Holden')
