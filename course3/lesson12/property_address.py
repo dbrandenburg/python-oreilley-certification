@@ -6,29 +6,29 @@ import logging
 from optparse import OptionParser
 import configparser
 
-def start_logging(loglevel='INFO', LOG_OUTPUT='property_address.log'):
+config = configparser.RawConfigParser()
+config_filename = os.path.join(os.path.dirname(__file__), 'property_address.cfg')
+config.read(config_filename)
+
+try:
+    LOG_FORMAT = config.get('log', 'format')
+    LOG_OUTPUT = config.get('log', 'output')
+    ZIP_CODE_VALIDATOR = config.get('validators','zip_code')
+    STATE_VALIDATOR = config.get('validators','state')
+except:
+    LOG_OUTPUT = 'property_address.log'
+    pass
+
+
+def start_logging(loglevel='INFO'):
     # Log defaults
     LOG_FORMAT = "%(asctime)s - %(levelname)s - %(funcName)s - %(message)s"
-
-    # Config
-    config = configparser.RawConfigParser()
-    config_filename = os.path.join(os.path.dirname(__file__), 'property_address.cfg')
-    config.read(config_filename)
-
-    try:
-        LOG_FORMAT = config.get('log', 'format')
-        LOG_OUTPUT = config.get('log', 'output')
-        ZIP_CODE_VALIDATOR = config.get('validators','zip_code')
-        STATE_VALIDATOR = config.get('validators','state')
-    except:
-        pass
-
     LEVELS = {'DEBUG': logging.DEBUG, 'INFO': logging.INFO,
           'WARNING': logging.WARNING, 'ERROR': logging.ERROR,
           'CRITICAL' : logging.CRITICAL}
 
-    LOG_OUTPUT =  os.path.join(os.path.dirname(__file__), LOG_OUTPUT)
-    logging.basicConfig(filename=LOG_OUTPUT, level=LEVELS[loglevel], format=LOG_FORMAT)
+    output =  os.path.join(os.path.dirname(__file__), LOG_OUTPUT)
+    logging.basicConfig(filename=output, level=LEVELS[loglevel], format=LOG_FORMAT)
 
 class StateError(Exception):
     """Custom error for wrong state"""
@@ -77,7 +77,11 @@ class Address:
 
     @state.setter
     def state(self, value):
-        if not re.match('^[A-Z]{2}$',value):
+        try:
+            state_validator = STATE_VALIDATOR
+        except:
+            state_validator = '^[A-Z]{2}$'
+        if not re.match(state_validator,value):
             logging.error('STATE exception')
             raise StateError("State doesn't match format LL")
         self._state = str(value)
@@ -90,9 +94,13 @@ class Address:
 
     @zip_code.setter
     def zip_code(self, value):
-        if not re.match('^\d{5}$',value):
+        try:
+            zipcode_validator = ZIP_CODE_VALIDATOR
+        except:
+            zipcode_validator = '^\d{5}$'
+        if not re.match(zipcode_validator,value):
             logging.error('ZIPCODE exception')
-            raise ZipCodeError("Zipcode doesn't match nnnnn")
+            raise ZipCodeError("Zipcode doesn't match")
         self._zip_code = value
 
 if __name__ == "__main__":
