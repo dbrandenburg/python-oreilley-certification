@@ -44,8 +44,8 @@ class Address:
         self._name = name
         self._street_address = street_address
         self._city = city
-        self._state = state
-        self._zip_code = zip_code
+        self.state = state
+        self.zip_code = zip_code
         pass
 
     @property

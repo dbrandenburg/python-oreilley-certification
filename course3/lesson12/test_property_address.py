@@ -6,14 +6,14 @@ class TestAddresses(unittest.TestCase):
 
     def setUp(self):
         start_logging(loglevel='INFO')
-        self.home = Address( name='Steve Holden', street_address='1972 Flying Circus', city='Arlington', state='VA', zip_code='12345-1234' )
+        self.home = Address( name='Steve Holden', street_address='1972 Flying Circus', city='Arlington', state='VAA', zip_code='12345-1234' )
 
     def test_name(self):
         self.assertEqual(self.home.name, 'Steve Holden')
         self.assertRaises(AttributeError, setattr, self.home, 'name', 'Daniel Greenfeld')
 
     def test_state(self):
-        self.assertEqual(self.home.state, 'VA')
+        self.assertEqual(self.home.state, 'VAA')
         self.assertRaises(StateError, setattr, self.home, 'state', 'Not a state')
         self.home.state = 'COA'
         self.assertEqual(self.home.state, 'COA')
