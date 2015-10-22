@@ -7,6 +7,10 @@ of average density given by user input.
 
 from math import log
 from timeit import Timer
+try:
+    import cProfile as profile
+except ImportError:
+    import profile
 
 def groffle_slow(mass, density):
     total = 0.0
@@ -53,3 +57,5 @@ also_fast_timer = Timer("total = groffle_also_fast(mass, density)",
  "from __main__ import groffle_also_fast, mass, density")
 also_fast_time = also_fast_timer.timeit(number=1000)
 print("also_fast_time:", also_fast_time)
+
+profile.run("groffle_slow(mass, density)")
