@@ -46,13 +46,12 @@ def write_file(chunk_size, number_of_chunks, f):
 if __name__ == "__main__":
     file_name = "/tmp/mmap.txt"
     file_size = 1024 * 1024 * 10
-
+    create_empty_file(file_name, file_size)
     chunks = generate_chunks(file_size)
 
     with open(file_name, "r+b") as f:
         mapf = mmap.mmap(f.fileno(), file_size, access=mmap.ACCESS_WRITE)
         for chunk_size, number_of_chunks in chunks:
-            create_empty_file(file_name, file_size)
             mmap_write = Timer(
                 "write_memory_mapped(chunk_size, number_of_chunks, mapf)",
                 "from __main__ import "
